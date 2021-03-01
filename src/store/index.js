@@ -36,6 +36,7 @@ export default new Vuex.Store({
     videoSettings: {},
     global: {
       darkMode: false,
+      timestamp: true,
       version: null,
       profiles: {},
       defaultPerChannel: {},
@@ -156,6 +157,9 @@ export default new Vuex.Store({
     },
     toggleDarkMode(state) {
       state.global.darkMode = !state.global.darkMode
+    },
+    toggleTimestamp(state) {
+      state.global.timestamp = !state.global.timestamp
     },
     setGlobal(state, value) {
       state.global = value

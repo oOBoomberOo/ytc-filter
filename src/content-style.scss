@@ -266,7 +266,7 @@ html[dark] #ytc-filter,
         height: 15px;
       }
     }
-    margin-top: 0.5rem;
+
     .vc-timestamp {
       font-size: 1rem;
       color: $grey-color;
@@ -291,6 +291,9 @@ html[dark] #ytc-filter,
         color: #111111;
         background-color: #ffd600;
         border-radius: $rounding;
+      }
+      &.member {
+        color: rgb(43, 166, 64);
       }
     }
 

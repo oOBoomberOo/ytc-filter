@@ -6,6 +6,7 @@
           <h5 class="message-column-title">{{ displayedVideoName }}</h5>
           <message-list :video-id="displayedVideoId" :is-popout="true">
             <button class="btn btn-primary  sm-btn mr-2" @click="$store.commit('toggleDarkMode')">{{ darkMode ? 'Dark' : 'Light' }}</button>
+            <button class="btn btn-primary  sm-btn mr-2" @click="$store.commit('toggleTimestamp')">Timestamp: {{ timestamp ? 'On' : 'Off' }}</button>
             <b-button :pressed.sync="displaySettings" variant="primary" class="sm-btn"> {{ displaySettings ? 'Hide' : 'Show' }} settings</b-button>
           </message-list>
         </div>
@@ -162,7 +163,6 @@
         3.0.0 is on the horizon and should bring filter combination allowing to both allow and block messages based on new conditions, like an emote filter.
       </p>
 
-      <<<<<<< Updated upstream
       <h4>2.1.3 Bugfixes</h4>
       <ul>
         <li>Remove block/report button cleanly so that Youtube's livechat can recycle them</li>
@@ -171,7 +171,6 @@
         <li>Avoid disconnecting chat when other extensions which require to patch Fetch like LiveTL are enabled</li>
       </ul>
 
-      ======= >>>>>>> Stashed changes
       <b-button variant="primary" class="ml-3" @click="showChangeLog = true">
         Full changelog
       </b-button>
@@ -287,6 +286,9 @@ export default {
     },
     darkMode() {
       return this.$store.getters.global.darkMode
+    },
+    timestamp() {
+      return this.$store.getters.global.timestamp;
     },
   },
   watch: {

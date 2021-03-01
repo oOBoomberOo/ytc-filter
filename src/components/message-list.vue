@@ -27,12 +27,14 @@
           Clear
         </button>
       </div>
-      <slot></slot>
+      <div>
+        <slot></slot>
+      </div>
     </div>
     <div id="ytc-messages" class="vc-content" :style="{ height: height }" ref="content">
       <div class="vc-message-item ytc-pointer" v-for="(msg, index) in messages" :key="msg.id" :id="'ytc' + msg.id" @click="msgOptions = msgOptions == null ? index : null">
         <div class="yt-msg-append ytc-hidden"></div>
-        <span v-show="msg.timestamp && msgOptions !== index" class="vc-timestamp">{{ msg.timestamp }}</span>
+        <span v-if="isTimestampEnabled" v-show="msg.timestamp && msgOptions !== index" class="vc-timestamp">{{ msg.timestamp }}</span>
         <span v-show="msgOptions === index" class="vc-options" @click.stop>
           <div v-if="!isPopout" class="yt-menu-append" :original-id="msg.id"></div>
           <button type="button" class="sm-btn" title="Go to message" @click="scrollYoutubeChatToId(msg.id)" v-show="!isPopout">
@@ -60,16 +62,16 @@
             </svg>
           </button> -->
         </span>
-        <span class="vc-author" :class="{ author: msg.moderator, owner: msg.owner }">
-          {{ msg.author
-          }}<svg v-if="msg.moderator" class="author-icon" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" focusable="false" width="16" height="16">
+        <span class="vc-author" :class="{ author: msg.moderator, owner: msg.owner, member: msg.member }">
+          {{ msg.author }}
+          <svg v-if="msg.moderator" class="author-icon" viewBox="0 0 16 16" preserveAspectRatio="xMidYMid meet" focusable="false" width="16" height="16">
             <g>
               <path
                 d="M9.64589146,7.05569719 C9.83346524,6.562372 9.93617022,6.02722257 9.93617022,5.46808511 C9.93617022,3.00042984 7.93574038,1 5.46808511,1 C4.90894765,1 4.37379823,1.10270499 3.88047304,1.29027875 L6.95744681,4.36725249 L4.36725255,6.95744681 L1.29027875,3.88047305 C1.10270498,4.37379824 1,4.90894766 1,5.46808511 C1,7.93574038 3.00042984,9.93617022 5.46808511,9.93617022 C6.02722256,9.93617022 6.56237198,9.83346524 7.05569716,9.64589147 L12.4098057,15 L15,12.4098057 L9.64589146,7.05569719 Z"
               ></path>
             </g>
           </svg>
-          <img v-if="msg.badgeUrl" :src="msg.badgeUrl" />
+
           <div class="vc-author-verified" v-if="msg.verified">
             <svg viewBox="0 0 18 18" focusable="false" width="18" height="18">
               <g transform="scale(0.50"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></g>
@@ -123,6 +125,9 @@ export default {
     }
   },
   computed: {
+    isTimestampEnabled() {
+      return this.$store.state.global.timestamp;
+    },
     currentVideoSettings() {
       return this.$store.state.videoSettings[this.videoId]
     },
